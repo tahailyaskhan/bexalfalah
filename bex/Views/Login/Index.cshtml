@@ -55,43 +55,51 @@
                 @using (Html.BeginForm("Authorization", "Login", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
-                    <form class="login100-form validate-form" name="LoginForm" method="post">
-                        @*<div style="margin-left:140px; position:center">
-                                <img width="90px" height="60px" src="~/LoginTheme/images/m3logo.png" />
-                            </div>*@
-                        <span class="login100-form-title p-b-39">
-                            <img style="width:220px;height:120px;" src="~/LoginTheme/images/m3logo.png" />
-                        </span>
-                        <div class="login100-form-title p-b-29">
-                            <span class="label-input100" style="font:bold;">M3 Tech Floor Management System</span>
-                        </div>
-                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                            <span class="label-input100">Username</span>
-                            <input class="input100" type="text" autocomplete="off" name="LoginName" placeholder="Type your username">
-                            <span class="focus-input100" data-symbol="&#xf206;"></span>
-                        </div>
+                <form class="login100-form validate-form" name="LoginForm" method="post">
+                    @*<div style="margin-left:140px; position:center">
+            <img width="90px" height="60px" src="~/LoginTheme/images/m3logo.png" />
+        </div>*@
+                    <span class="login100-form-title p-b-39">
+                        <img style="width:220px;height:120px;" src="~/LoginTheme/images/m3logo.png" />
+                    </span>
+                    <div class="login100-form-title p-b-29">
+                        <span class="label-input100" style="font:bold;">M3 Tech Floor Management System</span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                        <span class="label-input100">Username</span>
+                        <input class="input100" type="text" autocomplete="off" name="LoginName" placeholder="Type your username">
+                        <span class="focus-input100" data-symbol="&#xf206;"></span>
+                    </div>
 
-                        <div class="wrap-input100 validate-input" data-validate="Password is required">
-                            <span class="label-input100">Password</span>
-                            <input class="input100" type="Password" autocomplete="off" name="Password" placeholder="Type your password">
-                            <span class="focus-input100" data-symbol="&#xf190;"></span>
-                        </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="Password" autocomplete="off" name="Password" placeholder="Type your password">
+                        <span class="focus-input100" data-symbol="&#xf190;"></span>
+                    </div>
 
-                        <div class="text-right p-t-8 p-b-31">
-                            @Html.DisplayFor(model => model.Errormsg, new { @class = "required" })
-                            @*@Html.LabelFor(model => model.Errormsg, new { @style = "color:red" })*@
-                            <label for="lberror" id="lblError" class=""> </label>
-                        </div>
+                    <div class="text-right p-t-8 p-b-31">
+                        @Html.DisplayFor(model => model.Errormsg, new { @class = "required" })
+                        @*@Html.LabelFor(model => model.Errormsg, new { @style = "color:red" })*@
+                        <label for="lberror" id="lblError" class=""> </label>
+                    </div>
 
-                        <div class="container-login100-form-btn">
-                            <div class="wrap-login100-form-btn">
-                                <div class="login100-form-bgbtn"></div>
-                                <button class="login100-form-btn" style="background-color:#ff6002;" id="btn_login">
-                                    Login
-                                </button>
-                            </div>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" style="background-color:#ff6002;" id="btn_login">
+                                Login
+                            </button>
                         </div>
-                    </form>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" style="background-color:#ff6002;" id="btn_login">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                </form>
                 }
             </div>
         </div>
