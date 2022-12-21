@@ -1,0 +1,124 @@
+﻿@model bex.Models.MVVM.Authenticate.Users_Tuple
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>M3 Tech Login</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Sensitive pages could be cached-->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/LoginTheme/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/LoginTheme/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<style>
+    .required:after {
+        content: "*";
+        font-weight: bold;
+        color: red;
+    }
+</style>
+<body oncontextmenu="return false;">
+    <div class="limiter">
+        <div class="container-login100" style="background-color:whitesmoke">
+            <div class="wrap-login100 p-l-50 p-r-55 p-t-65 p-b-54">
+                @using (Html.BeginForm("Authorization", "Login", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <form class="login100-form validate-form" name="LoginForm" method="post">
+                        @*<div style="margin-left:140px; position:center">
+                                <img width="90px" height="60px" src="~/LoginTheme/images/m3logo.png" />
+                            </div>*@
+                        <span class="login100-form-title p-b-39">
+                            <img style="width:220px;height:120px;" src="~/LoginTheme/images/m3logo.png" />
+                        </span>
+                        <div class="login100-form-title p-b-29">
+                            <span class="label-input100" style="font:bold;">M3 Tech Floor Management System</span>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                            <span class="label-input100">Username</span>
+                            <input class="input100" type="text" autocomplete="off" name="LoginName" placeholder="Type your username">
+                            <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                            <span class="label-input100">Password</span>
+                            <input class="input100" type="Password" autocomplete="off" name="Password" placeholder="Type your password">
+                            <span class="focus-input100" data-symbol="&#xf190;"></span>
+                        </div>
+
+                        <div class="text-right p-t-8 p-b-31">
+                            @Html.DisplayFor(model => model.Errormsg, new { @class = "required" })
+                            @*@Html.LabelFor(model => model.Errormsg, new { @style = "color:red" })*@
+                            <label for="lberror" id="lblError" class=""> </label>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <button class="login100-form-btn" style="background-color:#ff6002;" id="btn_login">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="~/Sscripts/jquery-3.6.0.min.js"></script>
+    @*<script src="~/LoginTheme/vendor/jquery/jquery-3.2.1.min.js"></script>*@
+    <!--===============================================================================================-->
+    <script src="~/LoginTheme/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTheme/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/LoginTheme/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTheme/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTheme/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/LoginTheme/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTheme/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTheme/js/main.js"></script>
+
+
+
+</body>
+</html>

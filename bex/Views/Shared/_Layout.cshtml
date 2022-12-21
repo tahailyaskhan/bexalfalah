@@ -1,0 +1,1204 @@
+﻿@*<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - bex</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">bex</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2022 - bex - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
+    </html>*@
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using bex.Models.MVVM
+@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Sensitive pages could be cached-->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title>@ViewBag.Title - M3 Tech</title>
+    <link rel="icon" type="image/png" href="~/PortalTheme/assets/images/m3logo.png" />
+    <link href="~/PortalTheme/main.css" rel="stylesheet" />
+    <link href="~/Content/selectsearch/select2.css" rel="stylesheet" />
+    <style>
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 36px;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 37px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 37px;
+        }
+    </style>
+    @*<script type="text/javascript">
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+         </script>*@
+
+
+</head>
+
+@*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>   oncontextmenu="return false;"
+    </div>*@
+
+<body>
+
+    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+        <div class="app-header header-shadow">
+            <div class="app-header__logo">
+
+
+                <div class="logo-src">
+
+                </div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                            <span class="hamburger-box" style="color:#ff6002">
+                                <span class="hamburger-inner" style="color:#ff6002"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box" style="color:#ff6002">
+                            <span class="hamburger-inner" style="color:#ff6002;"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                <span>
+                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+            </div>    <div class="app-header__content">
+                <div class="app-header-left">
+                    <div class="search-wrapper">
+                        <div class="input-holder">
+                            <input type="text" class="search-input" placeholder="Type to search">
+                            @*<button class="search-icon"><span></span></button>*@
+                        </div>
+                        <button class="close"></button>
+                    </div>
+                    @*<ul class="header-menu nav">
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" class="nav-link">
+                                    <i class="nav-link-icon fa fa-database"> </i>
+                                    Statistics
+                                </a>
+                            </li>
+                            <li class="btn-group nav-item">
+                                <a href="javascript:void(0);" class="nav-link">
+                                    <i class="nav-link-icon fa fa-edit"></i>
+                                    Projects
+                                </a>
+                            </li>
+                            <li class="dropdown nav-item">
+                                <a href="javascript:void(0);" class="nav-link">
+                                    <i class="nav-link-icon fa fa-cog"></i>
+                                    Settings
+                                </a>
+                            </li>
+                        </ul>*@
+                </div>
+                <div class="app-header-right">
+                    <div class="header-btn-lg pr-0">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                    <div class="btn-group">
+                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                            <img width="42" class="rounded-circle" src="~/PortalTheme/assets/images/m3logo.png" alt="">
+                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                        </a>
+                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                            @*<button type="button" tabindex="0" class="dropdown-item" style="visibility: @ViewBag.DisplayUser">
+                                                    <a href="/Users/CreateUser" >User Account</a>
+                                                </button>*@
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                <a href="~/Login/Logout">Sign Out</a>
+                                            </button>
+                                            <button type="button" tabindex="0" class="dropdown-item">
+                                                <a target="_blank" href="~/Login/changePassword">Change Password</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content-left  ml-3 header-user-info">
+                                    <div class="widget-heading">
+                                        M3 Tech
+                                    </div>
+                                    <div class="widget-subheading">
+
+                                        @* Added Due to continous code break issues on session expiry : Ahsan *@
+                                        @{
+                                            if (ViewBag.Name != null)
+                                            {
+                                                @Html.Label((string)ViewBag.Name)
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+                                @*<div class="widget-content-right header-user-info ml-3">
+                                        <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+                                            <i class="fa text-white fa-calendar pr-1 pl-1"></i>
+                                        </button>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        <div class="ui-theme-settings" style="display:none;">
+            <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
+                <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
+            </button>
+            <div class="theme-settings__inner">
+                <div class="scrollbar-container">
+                    <div class="theme-settings__options-wrapper">
+                        <h3 class="themeoptions-heading">
+                            Layout Options
+                        </h3>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="switch has-switch switch-container-class" data-class="fixed-header">
+                                                    <div class="switch-animate switch-on">
+                                                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">
+                                                    Fixed Header
+                                                </div>
+                                                <div class="widget-subheading">
+                                                    Makes the header top fixed, always visible!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="switch has-switch switch-container-class" data-class="fixed-sidebar">
+                                                    <div class="switch-animate switch-on">
+                                                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">
+                                                    Fixed Sidebar
+                                                </div>
+                                                <div class="widget-subheading">
+                                                    Makes the sidebar left fixed, always visible!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="switch has-switch switch-container-class" data-class="fixed-footer">
+                                                    <div class="switch-animate switch-off">
+                                                        <input type="checkbox" data-toggle="toggle" data-onstyle="success">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left">
+                                                <div class="widget-heading">
+                                                    Fixed Footer
+                                                </div>
+                                                <div class="widget-subheading">
+                                                    Makes the app footer bottom fixed, always visible!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="themeoptions-heading">
+                            <div>
+                                Header Options
+                            </div>
+                            <button type="button" class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm switch-header-cs-class" data-class="">
+                                Restore Default
+                            </button>
+                        </h3>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h5 class="pb-2">
+                                        Choose Color Scheme
+                                    </h5>
+                                    <div class="theme-settings-swatches">
+                                        <div class="swatch-holder bg-primary switch-header-cs-class" data-class="bg-primary header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-secondary switch-header-cs-class" data-class="bg-secondary header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-success switch-header-cs-class" data-class="bg-success header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-info switch-header-cs-class" data-class="bg-info header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-warning switch-header-cs-class" data-class="bg-warning header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-danger switch-header-cs-class" data-class="bg-danger header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-light switch-header-cs-class" data-class="bg-light header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-dark switch-header-cs-class" data-class="bg-dark header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-focus switch-header-cs-class" data-class="bg-focus header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-alternate switch-header-cs-class" data-class="bg-alternate header-text-light">
+                                        </div>
+                                        <div class="divider">
+                                        </div>
+                                        <div class="swatch-holder bg-vicious-stance switch-header-cs-class" data-class="bg-vicious-stance header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-midnight-bloom switch-header-cs-class" data-class="bg-midnight-bloom header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-night-sky switch-header-cs-class" data-class="bg-night-sky header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-slick-carbon switch-header-cs-class" data-class="bg-slick-carbon header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-asteroid switch-header-cs-class" data-class="bg-asteroid header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-royal switch-header-cs-class" data-class="bg-royal header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-warm-flame switch-header-cs-class" data-class="bg-warm-flame header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-night-fade switch-header-cs-class" data-class="bg-night-fade header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-sunny-morning switch-header-cs-class" data-class="bg-sunny-morning header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-tempting-azure switch-header-cs-class" data-class="bg-tempting-azure header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-amy-crisp switch-header-cs-class" data-class="bg-amy-crisp header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-heavy-rain switch-header-cs-class" data-class="bg-heavy-rain header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-mean-fruit switch-header-cs-class" data-class="bg-mean-fruit header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-malibu-beach switch-header-cs-class" data-class="bg-malibu-beach header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-deep-blue switch-header-cs-class" data-class="bg-deep-blue header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-ripe-malin switch-header-cs-class" data-class="bg-ripe-malin header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-arielle-smile switch-header-cs-class" data-class="bg-arielle-smile header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-plum-plate switch-header-cs-class" data-class="bg-plum-plate header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-fisher switch-header-cs-class" data-class="bg-happy-fisher header-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-itmeo switch-header-cs-class" data-class="bg-happy-itmeo header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-mixed-hopes switch-header-cs-class" data-class="bg-mixed-hopes header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-strong-bliss switch-header-cs-class" data-class="bg-strong-bliss header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-grow-early switch-header-cs-class" data-class="bg-grow-early header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-love-kiss switch-header-cs-class" data-class="bg-love-kiss header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-premium-dark switch-header-cs-class" data-class="bg-premium-dark header-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-green switch-header-cs-class" data-class="bg-happy-green header-text-light">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="themeoptions-heading">
+                            <div>Sidebar Options</div>
+                            <button type="button" class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm switch-sidebar-cs-class" data-class="">
+                                Restore Default
+                            </button>
+                        </h3>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h5 class="pb-2">
+                                        Choose Color Scheme
+                                    </h5>
+                                    <div class="theme-settings-swatches">
+                                        <div class="swatch-holder bg-primary switch-sidebar-cs-class" data-class="bg-primary sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-secondary switch-sidebar-cs-class" data-class="bg-secondary sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-success switch-sidebar-cs-class" data-class="bg-success sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-info switch-sidebar-cs-class" data-class="bg-info sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-warning switch-sidebar-cs-class" data-class="bg-warning sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-danger switch-sidebar-cs-class" data-class="bg-danger sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-light switch-sidebar-cs-class" data-class="bg-light sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-dark switch-sidebar-cs-class" data-class="bg-dark sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-focus switch-sidebar-cs-class" data-class="bg-focus sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-alternate switch-sidebar-cs-class" data-class="bg-alternate sidebar-text-light">
+                                        </div>
+                                        <div class="divider">
+                                        </div>
+                                        <div class="swatch-holder bg-vicious-stance switch-sidebar-cs-class" data-class="bg-vicious-stance sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-midnight-bloom switch-sidebar-cs-class" data-class="bg-midnight-bloom sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-night-sky switch-sidebar-cs-class" data-class="bg-night-sky sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-slick-carbon switch-sidebar-cs-class" data-class="bg-slick-carbon sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-asteroid switch-sidebar-cs-class" data-class="bg-asteroid sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-royal switch-sidebar-cs-class" data-class="bg-royal sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-warm-flame switch-sidebar-cs-class" data-class="bg-warm-flame sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-night-fade switch-sidebar-cs-class" data-class="bg-night-fade sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-sunny-morning switch-sidebar-cs-class" data-class="bg-sunny-morning sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-tempting-azure switch-sidebar-cs-class" data-class="bg-tempting-azure sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-amy-crisp switch-sidebar-cs-class" data-class="bg-amy-crisp sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-heavy-rain switch-sidebar-cs-class" data-class="bg-heavy-rain sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-mean-fruit switch-sidebar-cs-class" data-class="bg-mean-fruit sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-malibu-beach switch-sidebar-cs-class" data-class="bg-malibu-beach sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-deep-blue switch-sidebar-cs-class" data-class="bg-deep-blue sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-ripe-malin switch-sidebar-cs-class" data-class="bg-ripe-malin sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-arielle-smile switch-sidebar-cs-class" data-class="bg-arielle-smile sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-plum-plate switch-sidebar-cs-class" data-class="bg-plum-plate sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-fisher switch-sidebar-cs-class" data-class="bg-happy-fisher sidebar-text-dark">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-itmeo switch-sidebar-cs-class" data-class="bg-happy-itmeo sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-mixed-hopes switch-sidebar-cs-class" data-class="bg-mixed-hopes sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-strong-bliss switch-sidebar-cs-class" data-class="bg-strong-bliss sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-grow-early switch-sidebar-cs-class" data-class="bg-grow-early sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-love-kiss switch-sidebar-cs-class" data-class="bg-love-kiss sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-premium-dark switch-sidebar-cs-class" data-class="bg-premium-dark sidebar-text-light">
+                                        </div>
+                                        <div class="swatch-holder bg-happy-green switch-sidebar-cs-class" data-class="bg-happy-green sidebar-text-light">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="themeoptions-heading">
+                            <div>Main Content Options</div>
+                            <button type="button" class="btn-pill btn-shadow btn-wide ml-auto active btn btn-focus btn-sm">
+                                Restore Default
+                            </button>
+                        </h3>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <h5 class="pb-2">
+                                        Page Section Tabs
+                                    </h5>
+                                    <div class="theme-settings-swatches">
+                                        <div role="group" class="mt-2 btn-group">
+                                            <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="body-tabs-line">
+                                                Line
+                                            </button>
+                                            <button type="button" class="btn-wide btn-shadow btn-primary active btn btn-secondary switch-theme-class" data-class="body-tabs-shadow">
+                                                Shadow
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        <div class="app-main">
+            <div class="app-sidebar sidebar-shadow">
+                <div class="app-header__logo">
+
+                    <div class="header__pane ml-auto">
+                        <div>
+                            <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-header__mobile-menu">
+                    <div>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="app-header__menu">
+                    <span>
+                        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                            <span class="btn-icon-wrapper">
+                                <i class="fa fa-ellipsis-v fa-w-6"></i>
+                            </span>
+                        </button>
+                    </span>
+                </div>    <div class="scrollbar-sidebar">
+                    <div class="app-sidebar__inner">
+                        <div style="height:30px;"></div>
+                        @*<img style="width:260px;height:120px;" src="~/PortalTheme/assets/images/header.png" />*@
+                    <ul class="vertical-nav-menu">
+                        <h3 class="app-sidebar__heading" style="color:#ff6002">
+                            HOME
+                            @*<li class="app-sidebar__heading" style="color:#ff6002">Dashboards</li>*@
+                        </h3>
+                        <li>
+                            <a href="~/Home/Index">
+                                <i class="metismenu-icon pe-7s-home" style="color:#ff6002"></i>
+                                Home
+                            </a>
+                        </li>
+                        @{ @*@HttpContextAccessor.HttpContext.Session.GetString("RolePrevilages")*@
+//var RolePrevilages = Session["RolePrevilages"] as List<bex.Models.MVVM.RolePrivilagesModel>;
+// var RolePrevilages = @HttpContextAccessor.HttpContext.Session.GetString("Message") as List<bex.Models.MVVM.RolePrivilagesModel>();
+
+
+
+
+
+     var RolePrevilages = JsonConvert.DeserializeObject<List<RolePrivilagesModel>>(@HttpContextAccessor.HttpContext.Session.GetString("RolePrevilages"));
+
+    }
+    <li style="visibility: @ViewBag.DisplayAttributes">
+        <a href="#">
+            <i class="metismenu-icon pe-7s-display2" style="color:#ff6002"></i>
+            Setup
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left" style="color:#ff6002"></i>
+        </a>
+
+        <ul>
+            @{
+                @*<li>
+                        <a href="~/Setup/markingCriteria">
+                            <i class="metismenu-icon" style="color:#ff6002"></i>
+                        Marking Criteria
+                        </a>
+                    </li>*@
+                foreach (var row in RolePrevilages)
+                {
+                    if (row.MethodName == "markingCriteria" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Setup/markingCriteria">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Marking Criteria
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "AddCity" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Setup/AddCity">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                City Setup
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "AddChecklist" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Setup/AddChecklist">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Checklist Setup
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "AddRole" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Setup/AddRole">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Role Setup
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "AddRegion" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Setup/AddRegion">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Region Setup
+                            </a>
+                        </li>
+                    }
+                    @*if (row.MethodName == "AddBusinessRegion" && row.RightToView == true)
+                        {
+                            <li>
+                                <a href="~/Setup/AddBusinessRegion">
+                                    <i class="metismenu-icon" style="color:#ff6002"></i>
+                                    Business Region Setup
+                                </a>
+                            </li>
+                        }*@
+                    if (row.MethodName == "AddArea" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Setup/AddArea">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Areas Setup
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "AddDesignation" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Setup/AddDesignation">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Designations Setup
+                            </a>
+                        </li>
+                    }
+
+                    if (row.MethodName == "VideosSetup" && row.RightToView == true)
+                    {
+                        @*<li>
+                                <a href="~/Setup/VideosSetup">
+                                    <i class="metismenu-icon" style="color:#ff6002"></i>
+                                    Videos Setup
+                                </a>
+                            </li>*@
+                    }
+
+                    if (row.MethodName == "CreateDepartment" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Departments/CreateDepartment">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Department Setup
+                            </a>
+                        </li>
+                    }
+
+                    if (row.MethodName == "assignTemplate" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Setup/assignTemplate">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Assign Template Setup
+                            </a>
+                        </li>
+                    }
+
+
+                }
+
+            }
+        </ul>
+    </li>
+    <li style="visibility: @ViewBag.DisplayAttributes">
+        <a href="#">
+            <i class="metismenu-icon pe-7s-display2" style="color:#ff6002"></i>
+            Attributes
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left" style="color:#ff6002"></i>
+        </a>
+        <ul>
+            @{
+                foreach (var row in RolePrevilages)
+                {
+                    if (row.MethodName == "CreateCategory" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Category/CreateCategory">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Attribute Setup
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "SubAttributes" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Category/SubAttributes">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                SubAttribute Setup
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "index" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Comment/index">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Predefined Comments
+                            </a>
+                        </li>
+                    }
+                }
+            }
+
+        </ul>
+    </li>
+    <li style="visibility: @ViewBag.DisplayBranches">
+        <a href="#">
+            <i class="metismenu-icon pe-7s-display2" style="color:#ff6002"></i>
+            Branches
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left" style="color:#ff6002"></i>
+        </a>
+        <ul>
+            @{
+                <li>
+                    <a href="~/Branches/uploadBranches">
+                        <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                        uploadBranches Setup
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Branches/rangers">
+                        <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                        rangers Setup
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Branches/bulkBranchTrail">
+                        <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                        BranchesTrail Setup
+                    </a>
+                </li>
+                foreach (var row in RolePrevilages)
+                {
+                    if (row.MethodName == "CreateBranches" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Branches/CreateBranches">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Branches Setup
+                            </a>
+                        </li>
+                    }
+                }
+            }
+
+        </ul>
+    </li>
+
+
+    <li style="visibility: @ViewBag.Addemail">
+        <a href="#">
+            <i class="metismenu-icon pe-7s-display2" style="color:#ff6002"></i>
+            Manage Email
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left" style="color:#ff6002"></i>
+        </a>
+        <ul>
+            @{
+                <li>
+                    <a href="~/Email/UploadExcel">
+                        <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                        UploadBTexcel
+
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Email/UploadFile">
+                        <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                        UploadYTDFILE
+
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Email/uploadFileHuddle">
+                        <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                        UploadHuddleFILE
+
+                    </a>
+                </li>
+                foreach (var row in RolePrevilages.OrderBy(row => row.DisplayName))
+                {
+                    if (row.MethodName == "UploadExcel" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Email/UploadExcel">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                UploadBTexcel
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "Addemail" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Email/Addemail">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Add Email
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "RemoveEmail" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Email/RemoveEmail">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Search and Remove Email
+                            </a>
+                        </li>
+                    }
+
+                    if (row.MethodName == "Uploademailbulk" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Email/Uploademailbulk">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Bulk Upload
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "BulkUploadTrail" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Email/emailLogs">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Bulk Upload Trail
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "addOrRemoveEmailTrail" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Email/addOrRemoveEmailLogs">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Add or Remove Trail
+                            </a>
+                        </li>
+                    }
+
+                }
+            }
+
+        </ul>
+
+
+
+    </li>
+
+
+
+
+
+    @*<li style="visibility: @ViewBag.DisplayDepartments">
+            <a href="#">
+                <i class="metismenu-icon pe-7s-display2" style="color:#ff6002"></i>
+                Departments
+                <i class="metismenu-state-icon pe-7s-angle-down caret-left" style="color:#ff6002"></i>
+            </a>
+            <ul>
+                @{
+                    foreach (var row in RolePrevilages)
+                    {
+                        if (row.MethodName == "CreateDepartment" && row.RightToView == true)
+                        {
+                            <li>
+                                <a href="~/Departments/CreateDepartment">
+                                    <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                    Department Setup
+                                </a>
+                            </li>
+                        }
+                    }
+                }
+
+            </ul>
+        </li>*@
+
+    @*<li style="visibility: @ViewBag.DisplayUserSetup">*@
+    <li style="">
+        <a href="#">
+            <i class="metismenu-icon pe-7s-display2" style="color:#ff6002"></i>
+            App Setup
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left" style="color:#ff6002"></i>
+        </a>
+        <ul>
+            @{
+                foreach (var row in RolePrevilages)
+                {
+                    if (row.MethodName == "CreateUser" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Users/CreateUser">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Create App User
+                            </a>
+                        </li>
+                    }
+
+
+                }
+            }
+
+        </ul>
+    </li>
+    @*<li style="visibility: @ViewBag.DisplayRights">*@
+    <li style="">
+        <a href="#">
+            <i class="metismenu-icon pe-7s-display2" style="color:#ff6002"></i>
+            Portal Setup
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left" style="color:#ff6002"></i>
+        </a>
+        <ul>
+            @{
+                <li>
+                    <a href="~/Report/btreportChecklist">
+                        <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                        bty
+                    </a>
+                </li>
+                foreach (var row in RolePrevilages)
+                {
+                    if (row.MethodName == "SetPrivileges" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/RolesManagement/SetPrivileges">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Assign Rights
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "AddRoles" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/RolesManagement/AddRoles">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Add Roles
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "VideosSetup" && row.RightToView == true)
+                    {
+                        @*<li>
+                                <a href="~/Setup/VideosSetup">
+                                    <i class="metismenu-icon" style="color:#ff6002"></i>
+                                    Videos Setup
+                                </a>
+                            </li>*@
+                    }
+                    if (row.MethodName == "PortalUser" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Users/PortalUser">
+                                <i class="metismenu-icon pe-7s-eyedropper" style="color:#ff6002"></i>
+                                Create Portal User
+                            </a>
+                        </li>
+                    }
+
+
+                }
+            }
+
+
+        </ul>
+    </li>
+
+    <li style="visibility: @ViewBag.DisplayReporting">
+
+        <a href="#">
+            <i class="metismenu-icon pe-7s-mouse" style="color:#ff6002"></i>
+            Reporting
+            <i class="metismenu-state-icon pe-7s-angle-down caret-left" style="color:#ff6002"></i>
+        </a>
+        <ul>
+            @{
+                var adminId = 0;//Convert.ToInt32(Session["UserRole"]);
+                if (adminId == 0)
+                {
+
+                    <li>
+                        <a href="~/Report/AOMReport">
+                            <i class="metismenu-icon" style="color:#ff6002">
+                            </i> Users Report
+                        </a>
+                    </li>
+
+                }
+
+                foreach (var row in RolePrevilages)
+                {
+                    if (row.MethodName == "ReportQA" && row.RightToView == true)
+                    {
+
+
+                        <li>
+                            <a href="~/Report/ReportQA">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Users Report
+                            </a>
+                        </li>
+
+                    }
+                    if (row.MethodName == "hrReport" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Report/hrReport">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                HR Report
+                            </a>
+                        </li>
+                    }
+                    if (row.MethodName == "floortimeChecklist" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Report/floortimeChecklist">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Floortime CheckList Report
+                            </a>
+                        </li>
+
+                    }
+
+
+                    if (row.MethodName == "EmailLogs" && row.RightToView == true)
+                    {
+                        <li>
+                            <a href="~/Report/EmailLogs">
+                                <i class="metismenu-icon" style="color:#ff6002"></i>
+                                Email Logs
+                            </a>
+                        </li>
+
+                        @*<li>
+                                <a href="~/Report_BTOfficer">
+                                    <i class="metismenu-icon" style="color:#ff6002">
+                                    </i>BT Officer Report
+                                </a>
+                            </li>*@
+                    }
+                }
+            }
+        </ul>
+    </li>
+</ul>
+        </div>
+    </div>
+</div>
+@*main body for child*@
+<div class="app-main__outer">
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div style="width:300px;"></div>
+                    <p style="color:#ff6002">  Bank Alfalah - Branch Experience Portal (Bex)</p>
+                    <div>
+                        <div class="page-title-subheading"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mainbody">
+            @RenderBody()
+        </div>
+    </div>
+    <div class="app-wrapper-footer">
+        <div class="app-footer">
+            <div class="app-footer__inner">
+                <div class="app-footer-left">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link"></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="app-footer-right">
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <p style="color:#ff6002">  &copy;  M3 Tech Pakistan 2019-2022 </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <div class="badge badge-pill mr-1 ml-0"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <div class="badge badge-pill mr-1 ml-0"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <div class="badge badge-pill mr-1 ml-0"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <div class="badge badge-pill mr-1 ml-0"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <div class="badge badge-pill mr-1 ml-0"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <div class="badge badge-pill mr-1 ml-0"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0);" class="nav-link">
+                                <div class="badge badge-pill mr-1 ml-0"></div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="http://maps.google.com/maps/api/js?sensor=true"></script>*@
+</div>
+</div>
+@RenderSection("scripts", required: false)
+@*<script src="~/Content/jquery-3.1.1.min.js"></script>*@
+<script src="~/Sscripts/jquery-3.6.0.min.js"></script>
+<script src="~/Content/JqueryDatatable/JS/jquery.dataTables.min.js"></script>
+<script src="~/Content/JqueryDatatable/JS/dataTables.bootstrap.min.js"></script>
+<script src="~/Content/jquery-ui-1.8.24.min.js"></script>
+<script src="~/Content/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Content/jquery.validate-vsdoc.js"></script>
+<script src="~/Content/jquery.validate.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+@*<script src="~/Content/jquery.validate.unobtrusive.min.js"></script>*@
+<script src="~/Sscripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Content/knockout-2.2.0.debug.js"></script>
+<script src="~/Content/knockout-2.2.0.js"></script>
+<script src="~/Content/modernizr-2.6.2.js"></script>
+<script src="~/Content/site-ajax.js"></script>
+<script src="~/Content/site-chart.js"></script>
+<script src="~/Content/site-common.js"></script>
+<script src="~/Content/site-redirect.js"></script>
+<script src="~/Content/site-script.js"></script>
+<script src="~/Sscripts/CustomeJS.js"></script>
+<script type="text/javascript" src="~/PortalTheme/assets/scripts/main.js"></script>
+<script src="~/Content/ExportoExcel/jquery.table2excel.min.js"></script>
+
+<script src="~/Content/selectsearch/select2.js"></script>
+
+@*<div class="container body-content">
+
+        <hr />
+        <footer>
+            <div class="badge badge-success mr-1 ml-0">
+                <small>NEW</small>
+            </div>
+
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>*@
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
+</body>
+</html>
+
+
+
